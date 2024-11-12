@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Git Project [![][autotest_badge]][autotest_workflow]
 
 ## Preliminaries
@@ -11,13 +12,13 @@
 
 Let's get started...
 
-## Part I: Branches 
+## Part I: Branches
 
 Create the following git commit tree.
-You can add any file you want in each commit, but the message for each commit must be exactly the same as denoted in the below graph (`c1`, `c2`,..., `c12`). 
-Note the (lightweight) tags in commit `c8`. 
+You can add any file you want in each commit, but the message for each commit must be exactly the same as denoted in the below graph (`c1`, `c2`,..., `c12`).
+Note the (lightweight) tags in commit `c8`.
 
-The parent commit of `c1` must be the last commit in branch `main` after a fresh clone of this repo (commit with message `start here`). 
+The parent commit of `c1` must be the last commit in branch `main` after a fresh clone of this repo (commit with message `start here`).
 
 ```mermaid
 gitGraph
@@ -65,13 +66,13 @@ bash branches.sh
 
 **It's highly recommended to use a conflict merge tool (like the built-in one in PyCharm or VSCode).**
 
-Your team colleagues, John Doe and Narayan Nadella, are working together on the same task. 
-Each one of them is working on his own git branch. 
+Your team colleagues, John Doe and Narayan Nadella, are working together on the same task.
+Each one of them is working on his own git branch.
 
 - John Doe developed under `origin/feature/version1` branch.
 - Narayan Nadella developed under `origin/feature/version2` branch.
 
-Both checked out from the same `main` branch. 
+Both checked out from the same `main` branch.
 
 You decide to create a new branch called `feature/myfeature` and merge the work of John and Narayan into your branch. When done this you encountered a conflict.
 
@@ -90,7 +91,7 @@ cd test
 bash conflict.sh
 ```
 
-## Part III: Pre-commit and sensitive data 
+## Part III: Pre-commit and sensitive data
 
 In this repo, there is a commit which contains credentials of strong identity in AWS.
 The file contains the credentials might look like:
@@ -100,7 +101,7 @@ AWS_ACCESS_KEY_ID=AKIA6BJMA3TKBADSHFXZ
 AWS_SECRET_ACCESS_KEY=op7N48fxIFxh06ToUwZd33emso/QKZWb/2M5fgTX
 ```
 
-Your goal is to find this commit, and completely remove it from the history. 
+Your goal is to find this commit, and completely remove it from the history.
 
 Here is an illustration of the vulnerable commit (the true branch name is not `some_branch`):
 
@@ -114,7 +115,7 @@ gitGraph
        commit id: "commit 3"
 ```
 
-And after your fix: 
+And after your fix:
 
 ```mermaid
 gitGraph
@@ -128,17 +129,17 @@ gitGraph
 Note that the commits coming before the vulnerable commit should remain untouched (like `commit1`),
 while commit coming after the vulnerable commit might change (like `some other commit 2` and `some other commit 3`, instead of `commit 2` and `commit 3`).
 
-Commit-wise, you are free to do whatever you wish for the commits that are coming after the vulnerable commit, as far as **the content of the branch remain the same**. 
-The branch content should be identical to what it was before your fix, except the vulnerable file that was committed in the `VULNERABLE_COMMIT` commit.  
+Commit-wise, you are free to do whatever you wish for the commits that are coming after the vulnerable commit, as far as **the content of the branch remain the same**.
+The branch content should be identical to what it was before your fix, except the vulnerable file that was committed in the `VULNERABLE_COMMIT` commit.
 
 There are many approaches to solve it, some are using `git reset --hard`, `git rebase` or `git cherry-pick`. Find your preferred way.
-You should find the branch contains the vulnerable data, learn its structure and data, and remove the vulnerable commit carefully, without loosing data committed in other commits. 
+You should find the branch contains the vulnerable data, learn its structure and data, and remove the vulnerable commit carefully, without loosing data committed in other commits.
 
-Since you've changed the commit history, you may be needing to `--force`fully push your fixed branch to remote. 
+Since you've changed the commit history, you may be needing to `--force`fully push your fixed branch to remote.
 
 In order to prevent this vulnerability in the future, integrate [pre commit](https://pre-commit.com/) into your repo, and add a plugin that blocks any commits that contains AWS credentials data.
 Verify that the tool is working - try to commit the below text and make sure pre-commit is blocking you.
-If you were able to commit it, `git reset` your working branch to the commit before the vulnerable commit, and try again.  
+If you were able to commit it, `git reset` your working branch to the commit before the vulnerable commit, and try again.
 
 ### Test it locally
 
@@ -147,14 +148,14 @@ git checkout main
 bash test/sensitive_data.sh
 ```
 
-## Part IV: Merge two git repositories 
+## Part IV: Merge two git repositories
 
 In a company implementing typical DevOps pipelines, different teams may be responsible for developing separate microservices of a larger application, each residing in its own Git repository.
-You have been assigned the task of merging two different Git repositories, each containing separate microservice, into a single [monorepo](https://www.atlassian.com/git/tutorials/monorepos). 
-The repositories were maintained by separate teams and have separate commit histories. 
+You have been assigned the task of merging two different Git repositories, each containing separate microservice, into a single [monorepo](https://www.atlassian.com/git/tutorials/monorepos).
+The repositories were maintained by separate teams and have separate commit histories.
 Your goal is to **preserve the entire commit history** of both repositories while merging the code into a single Git repository, ensuring that the microservices remain functional and properly integrated with each other.
 
-Merge the [GitProjectAnother](https://github.com/alonitac/GitProjectAnother.git) repo into your main [GitProject][github_repo] repo. 
+Merge the [GitProjectAnother](https://github.com/alonitac/GitProjectAnother.git) repo into your main [GitProject][github_repo] repo.
 The `main` branch of the resulted repo should have the following file structure:
 
 ```text
@@ -167,9 +168,9 @@ GitProject
 
 ### Notes
 
-- Feel free to make changes to any files in the `GitProjectAnother` repository that are not located under the `serviceB` directory. 
-- Once the history of the `GitProjectAnother` repository has been successfully merged into this repository, feel free to make any additional changes, such as moving files into different directories.  
-- In case of conflicts during the merge, you should prefer this repo's version.  
+- Feel free to make changes to any files in the `GitProjectAnother` repository that are not located under the `serviceB` directory.
+- Once the history of the `GitProjectAnother` repository has been successfully merged into this repository, feel free to make any additional changes, such as moving files into different directories.
+- In case of conflicts during the merge, you should prefer this repo's version.
 
 ### Test it locally
 
@@ -184,8 +185,8 @@ bash merge_repos.sh
 
 Time to submit your solution for testing.
 
-1. Commit and push your changes. Make sure you push involved branches, not only `main`. 
-1. In [GitHub Actions][github_actions], watch the **Project auto-testing** workflow (enable Actions if needed). 
+1. Commit and push your changes. Make sure you push involved branches, not only `main`.
+1. In [GitHub Actions][github_actions], watch the **Project auto-testing** workflow (enable Actions if needed).
    If there are any failures, click on the failed job and **read the test logs carefully**. Fix your solution, commit and push again.
 
 
@@ -200,3 +201,6 @@ Time to submit your solution for testing.
 [github_actions]: ../../actions
 [github_repo]: ../../
 
+=======
+# GitExerciseOther
+>>>>>>> GitProjectAnother/main
